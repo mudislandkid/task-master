@@ -1,418 +1,498 @@
-<a name="readme-top"></a>
+# Task Master AI - CLI Edition
 
-<div align='center'>
-<a href="https://trendshift.io/repositories/13971" target="_blank"><img src="https://trendshift.io/api/badge/repositories/13971" alt="eyaltoledano%2Fclaude-task-master | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
-</div>
+> **AI-Powered Task Management for Solo Developers**
+> Optimized for VS Code + GitHub Copilot
 
-<p align="center">
-  <a href="https://task-master.dev"><img src="./images/logo.png?raw=true" alt="Taskmaster logo"></a>
-</p>
+[![npm version](https://badge.fury.io/js/task-master-ai.svg)](https://www.npmjs.com/package/task-master-ai)
+[![License](https://img.shields.io/badge/license-MIT%20with%20Commons%20Clause-blue.svg)](LICENSE)
 
-<p align="center">
-<b>Taskmaster</b>: A task management system for AI-driven development, designed to work seamlessly with any AI chat.
-</p>
+---
 
-<p align="center">
-  <a href="https://discord.gg/taskmasterai" target="_blank"><img src="https://dcbadge.limes.pink/api/server/https://discord.gg/taskmasterai?style=flat" alt="Discord"></a> |
-  <a href="https://docs.task-master.dev" target="_blank">Docs</a>
-</p>
+## What is Task Master?
 
-<p align="center">
-  <a href="https://github.com/eyaltoledano/claude-task-master/actions/workflows/ci.yml"><img src="https://github.com/eyaltoledano/claude-task-master/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
-  <a href="https://github.com/eyaltoledano/claude-task-master/stargazers"><img src="https://img.shields.io/github/stars/eyaltoledano/claude-task-master?style=social" alt="GitHub stars"></a>
-  <a href="https://badge.fury.io/js/task-master-ai"><img src="https://badge.fury.io/js/task-master-ai.svg" alt="npm version"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT%20with%20Commons%20Clause-blue.svg" alt="License"></a>
-</p>
+Task Master is a command-line tool that helps you break down complex projects into manageable tasks using AI. Perfect for solo developers who want structured task management without the overhead of team collaboration tools.
 
-<p align="center">
-  <a href="https://www.npmjs.com/package/task-master-ai"><img src="https://img.shields.io/npm/d18m/task-master-ai?style=flat" alt="NPM Downloads"></a>
-  <a href="https://www.npmjs.com/package/task-master-ai"><img src="https://img.shields.io/npm/dm/task-master-ai?style=flat" alt="NPM Downloads"></a>
-  <a href="https://www.npmjs.com/package/task-master-ai"><img src="https://img.shields.io/npm/dw/task-master-ai?style=flat" alt="NPM Downloads"></a>
-</p>
+### Key Features
 
-## By [@eyaltoledano](https://x.com/eyaltoledano) & [@RalphEcom](https://x.com/RalphEcom)
+- ✅ **AI-Powered PRD Parsing** - Convert project requirements into structured tasks
+- ✅ **Multi-Level Tasks** - Support for tasks, subtasks, and sub-subtasks (1, 1.1, 1.1.1)
+- ✅ **Complexity Analysis** - AI suggests how to break down complex tasks
+- ✅ **Git Integration** - Task-based commits and branches
+- ✅ **GitHub Copilot Friendly** - Tasks stored as readable files for AI context
+- ✅ **CLI-Only** - No GUI, no server, just simple commands
+- ✅ **Local Storage** - All data in `.taskmaster/` directory
 
-[![Twitter Follow](https://img.shields.io/twitter/follow/eyaltoledano)](https://x.com/eyaltoledano)
-[![Twitter Follow](https://img.shields.io/twitter/follow/RalphEcom)](https://x.com/RalphEcom)
-
-A task management system for AI-driven development with Claude, designed to work seamlessly with Cursor AI.
-
-## Documentation
-
-📚 **[View Full Documentation](https://docs.task-master.dev)**
-
-For detailed guides, API references, and comprehensive examples, visit our documentation site.
-
-### Quick Reference
-
-The following documentation is also available in the `docs` directory:
-
-- [Configuration Guide](docs/configuration.md) - Set up environment variables and customize Task Master
-- [Tutorial](docs/tutorial.md) - Step-by-step guide to getting started with Task Master
-- [Command Reference](docs/command-reference.md) - Complete list of all available commands
-- [Task Structure](docs/task-structure.md) - Understanding the task format and features
-- [Example Interactions](docs/examples.md) - Common Cursor AI interaction examples
-- [Migration Guide](docs/migration-guide.md) - Guide to migrating to the new project structure
-
-#### Quick Install for Cursor 1.0+ (One-Click)
-
-[![Add task-master-ai MCP server to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=task-master-ai&config=eyJjb21tYW5kIjoibnB4IC15IC0tcGFja2FnZT10YXNrLW1hc3Rlci1haSB0YXNrLW1hc3Rlci1haSIsImVudiI6eyJBTlRIUk9QSUNfQVBJX0tFWSI6IllPVVJfQU5USFJPUElDX0FQSV9LRVlfSEVSRSIsIlBFUlBMRVhJVFlfQVBJX0tFWSI6IllPVVJfUEVSUExFWElUWV9BUElfS0VZX0hFUkUiLCJPUEVOQUlfQVBJX0tFWSI6IllPVVJfT1BFTkFJX0tFWV9IRVJFIiwiR09PR0xFX0FQSV9LRVkiOiJZT1VSX0dPT0dMRV9LRVlfSEVSRSIsIk1JU1RSQUxfQVBJX0tFWSI6IllPVVJfTUlTVFJBTF9LRVlfSEVSRSIsIkdST1FfQVBJX0tFWSI6IllPVVJfR1JPUV9LRVlfSEVSRSIsIk9QRU5ST1VURVJfQVBJX0tFWSI6IllPVVJfT1BFTlJPVVRFUl9LRVlfSEVSRSIsIlhBSV9BUElfS0VZIjoiWU9VUl9YQUlfS0VZX0hFUkUiLCJBWlVSRV9PUEVOQUlfQVBJX0tFWSI6IllPVVJfQVpVUkVfS0VZX0hFUkUiLCJPTExBTUFfQVBJX0tFWSI6IllPVVJfT0xMQU1BX0FQSV9LRVlfSEVSRSJ9fQ%3D%3D)
-
-> **Note:** After clicking the link, you'll still need to add your API keys to the configuration. The link installs the MCP server with placeholder keys that you'll need to replace with your actual API keys.
-
-#### Claude Code Quick Install
-
-For Claude Code users:
-
-```bash
-claude mcp add taskmaster-ai -- npx -y task-master-ai
-```
-
-Don't forget to add your API keys to the configuration:
-- in the root .env of your Project
-- in the "env" section of your mcp config for taskmaster-ai
-
-
-## Requirements
-
-Taskmaster utilizes AI across several commands, and those require a separate API key. You can use a variety of models from different AI providers provided you add your API keys. For example, if you want to use Claude 3.7, you'll need an Anthropic API key.
-
-You can define 3 types of models to be used: the main model, the research model, and the fallback model (in case either the main or research fail). Whatever model you use, its provider API key must be present in either mcp.json or .env.
-
-At least one (1) of the following is required:
-
-- Anthropic API key (Claude API)
-- OpenAI API key
-- Google Gemini API key
-- Perplexity API key (for research model)
-- xAI API Key (for research or main model)
-- OpenRouter API Key (for research or main model)
-- Claude Code (no API key required - requires Claude Code CLI)
-- Codex CLI (OAuth via ChatGPT subscription - requires Codex CLI)
-
-Using the research model is optional but highly recommended. You will need at least ONE API key (unless using Claude Code or Codex CLI with OAuth). Adding all API keys enables you to seamlessly switch between model providers at will.
+---
 
 ## Quick Start
-
-### Option 1: MCP (Recommended)
-
-MCP (Model Control Protocol) lets you run Task Master directly from your editor.
-
-#### 1. Add your MCP config at the following path depending on your editor
-
-| Editor       | Scope   | Linux/macOS Path                      | Windows Path                                      | Key          |
-| ------------ | ------- | ------------------------------------- | ------------------------------------------------- | ------------ |
-| **Cursor**   | Global  | `~/.cursor/mcp.json`                  | `%USERPROFILE%\.cursor\mcp.json`                  | `mcpServers` |
-|              | Project | `<project_folder>/.cursor/mcp.json`   | `<project_folder>\.cursor\mcp.json`               | `mcpServers` |
-| **Windsurf** | Global  | `~/.codeium/windsurf/mcp_config.json` | `%USERPROFILE%\.codeium\windsurf\mcp_config.json` | `mcpServers` |
-| **VS Code**  | Project | `<project_folder>/.vscode/mcp.json`   | `<project_folder>\.vscode\mcp.json`               | `servers`    |
-| **Q CLI**    | Global  | `~/.aws/amazonq/mcp.json`             |                                                   | `mcpServers` |
-
-##### Manual Configuration
-
-###### Cursor & Windsurf & Q Developer CLI (`mcpServers`)
-
-```json
-{
-  "mcpServers": {
-    "task-master-ai": {
-      "command": "npx",
-      "args": ["-y", "task-master-ai"],
-      "env": {
-        // "TASK_MASTER_TOOLS": "all", // Options: "all", "standard", "core", or comma-separated list of tools
-        "ANTHROPIC_API_KEY": "YOUR_ANTHROPIC_API_KEY_HERE",
-        "PERPLEXITY_API_KEY": "YOUR_PERPLEXITY_API_KEY_HERE",
-        "OPENAI_API_KEY": "YOUR_OPENAI_KEY_HERE",
-        "GOOGLE_API_KEY": "YOUR_GOOGLE_KEY_HERE",
-        "MISTRAL_API_KEY": "YOUR_MISTRAL_KEY_HERE",
-        "GROQ_API_KEY": "YOUR_GROQ_KEY_HERE",
-        "OPENROUTER_API_KEY": "YOUR_OPENROUTER_KEY_HERE",
-        "XAI_API_KEY": "YOUR_XAI_KEY_HERE",
-        "AZURE_OPENAI_API_KEY": "YOUR_AZURE_KEY_HERE",
-        "OLLAMA_API_KEY": "YOUR_OLLAMA_API_KEY_HERE"
-      }
-    }
-  }
-}
-```
-
-> 🔑 Replace `YOUR_…_KEY_HERE` with your real API keys. You can remove keys you don't use.
-
-> **Note**: If you see `0 tools enabled` in the MCP settings, restart your editor and check that your API keys are correctly configured.
-
-###### VS Code (`servers` + `type`)
-
-```json
-{
-  "servers": {
-    "task-master-ai": {
-      "command": "npx",
-      "args": ["-y", "task-master-ai"],
-      "env": {
-        // "TASK_MASTER_TOOLS": "all", // Options: "all", "standard", "core", or comma-separated list of tools
-        "ANTHROPIC_API_KEY": "YOUR_ANTHROPIC_API_KEY_HERE",
-        "PERPLEXITY_API_KEY": "YOUR_PERPLEXITY_API_KEY_HERE",
-        "OPENAI_API_KEY": "YOUR_OPENAI_KEY_HERE",
-        "GOOGLE_API_KEY": "YOUR_GOOGLE_KEY_HERE",
-        "MISTRAL_API_KEY": "YOUR_MISTRAL_KEY_HERE",
-        "GROQ_API_KEY": "YOUR_GROQ_KEY_HERE",
-        "OPENROUTER_API_KEY": "YOUR_OPENROUTER_KEY_HERE",
-        "XAI_API_KEY": "YOUR_XAI_KEY_HERE",
-        "AZURE_OPENAI_API_KEY": "YOUR_AZURE_KEY_HERE",
-        "OLLAMA_API_KEY": "YOUR_OLLAMA_API_KEY_HERE"
-      },
-      "type": "stdio"
-    }
-  }
-}
-```
-
-> 🔑 Replace `YOUR_…_KEY_HERE` with your real API keys. You can remove keys you don't use.
-
-#### 2. (Cursor-only) Enable Taskmaster MCP
-
-Open Cursor Settings (Ctrl+Shift+J) ➡ Click on MCP tab on the left ➡ Enable task-master-ai with the toggle
-
-#### 3. (Optional) Configure the models you want to use
-
-In your editor's AI chat pane, say:
-
-```txt
-Change the main, research and fallback models to <model_name>, <model_name> and <model_name> respectively.
-```
-
-For example, to use Claude Code (no API key required):
-```txt
-Change the main model to claude-code/sonnet
-```
-
-[Table of available models](docs/models.md) | [Claude Code setup](docs/examples/claude-code-usage.md)
-
-#### 4. Initialize Task Master
-
-In your editor's AI chat pane, say:
-
-```txt
-Initialize taskmaster-ai in my project
-```
-
-#### 5. Make sure you have a PRD (Recommended)
-
-For **new projects**: Create your PRD at `.taskmaster/docs/prd.txt`.
-For **existing projects**: You can use `scripts/prd.txt` or migrate with `task-master migrate`
-
-An example PRD template is available after initialization in `.taskmaster/templates/example_prd.txt`.
-
-> [!NOTE]
-> While a PRD is recommended for complex projects, you can always create individual tasks by asking "Can you help me implement [description of what you want to do]?" in chat.
-
-**Always start with a detailed PRD.**
-
-The more detailed your PRD, the better the generated tasks will be.
-
-#### 6. Common Commands
-
-Use your AI assistant to:
-
-- Parse requirements: `Can you parse my PRD at scripts/prd.txt?`
-- Plan next step: `What's the next task I should work on?`
-- Implement a task: `Can you help me implement task 3?`
-- View multiple tasks: `Can you show me tasks 1, 3, and 5?`
-- Expand a task: `Can you help me expand task 4?`
-- **Research fresh information**: `Research the latest best practices for implementing JWT authentication with Node.js`
-- **Research with context**: `Research React Query v5 migration strategies for our current API implementation in src/api.js`
-
-[More examples on how to use Task Master in chat](docs/examples.md)
-
-### Option 2: Using Command Line
-
-#### Installation
 
 ```bash
 # Install globally
 npm install -g task-master-ai
 
-# OR install locally within your project
-npm install task-master-ai
-```
-
-#### Initialize a new project
-
-```bash
-# If installed globally
+# Initialize in your project
+cd your-project
 task-master init
 
-# If installed locally
-npx task-master init
+# Set your OpenAI API key
+export OPENAI_API_KEY="sk-..."
 
-# Initialize project with specific rules
-task-master init --rules cursor,windsurf,vscode
-```
+# Create a PRD document
+cat > .taskmaster/docs/prd.txt << 'EOF'
+# Authentication System
 
-This will prompt you for project details and set up a new project with the necessary files and structure.
+Build JWT-based authentication with:
+- User registration (email + password)
+- Login with JWT tokens
+- Password reset flow
+- Email verification
+EOF
 
-#### Common Commands
+# Parse PRD into tasks
+task-master parse-prd .taskmaster/docs/prd.txt
 
-```bash
-# Initialize a new project
-task-master init
+# Analyze complexity and expand tasks
+task-master analyze-complexity
+task-master expand --all
 
-# Parse a PRD and generate tasks
-task-master parse-prd your-prd.txt
-
-# List all tasks
+# Start working
 task-master list
-
-# Show the next task to work on
-task-master next
-
-# Show specific task(s) - supports comma-separated IDs
-task-master show 1,3,5
-
-# Research fresh information with project context
-task-master research "What are the latest best practices for JWT authentication?"
-
-# Move tasks between tags (cross-tag movement)
-task-master move --from=5 --from-tag=backlog --to-tag=in-progress
-task-master move --from=5,6,7 --from-tag=backlog --to-tag=done --with-dependencies
-task-master move --from=5 --from-tag=backlog --to-tag=in-progress --ignore-dependencies
-
-# Generate task files
-task-master generate
-
-# Add rules after initialization
-task-master rules add windsurf,roo,vscode
+task-master show 1
+task-master status 1 in-progress
 ```
 
-## Tool Loading Configuration
+---
 
-### Optimizing MCP Tool Loading
+## Installation
 
-Task Master's MCP server supports selective tool loading to reduce context window usage. By default, all 36 tools are loaded (~21,000 tokens) to maintain backward compatibility with existing installations.
+### Prerequisites
 
-You can optimize performance by configuring the `TASK_MASTER_TOOLS` environment variable:
+- **Node.js** 18 or higher
+- **OpenAI API Key** (for AI features)
 
-### Available Modes
+### Install
 
-| Mode | Tools | Context Usage | Use Case |
-|------|-------|--------------|----------|
-| `all` (default) | 36 | ~21,000 tokens | Complete feature set - all tools available |
-| `standard` | 15 | ~10,000 tokens | Common task management operations |
-| `core` (or `lean`) | 7 | ~5,000 tokens | Essential daily development workflow |
-| `custom` | Variable | Variable | Comma-separated list of specific tools |
+```bash
+npm install -g task-master-ai
+```
 
-### Configuration Methods
+### Setup
 
-#### Method 1: Environment Variable in MCP Configuration
+```bash
+# Add to ~/.bashrc, ~/.zshrc, or equivalent
+export OPENAI_API_KEY="sk-your-key-here"
 
-Add `TASK_MASTER_TOOLS` to your MCP configuration file's `env` section:
+# Or use a .env file in your project
+echo "OPENAI_API_KEY=sk-your-key-here" > .env
+```
 
-```jsonc
-{
-  "mcpServers": {  // or "servers" for VS Code
-    "task-master-ai": {
-      "command": "npx",
-      "args": ["-y", "--package=task-master-ai", "task-master-ai"],
-      "env": {
-        "TASK_MASTER_TOOLS": "standard",  // Options: "all", "standard", "core", "lean", or comma-separated list
-        "ANTHROPIC_API_KEY": "your-key-here",
-        // ... other API keys
-      }
-    }
-  }
+---
+
+## Core Concepts
+
+### Tasks
+
+Tasks are organized in a multi-level hierarchy:
+
+```
+1. Build Authentication System          # Main task
+├── 1.1 User Registration               # Subtask
+│   ├── 1.1.1 Email validation          # Sub-subtask
+│   ├── 1.1.2 Password hashing          # Sub-subtask
+│   └── 1.1.3 Database storage          # Sub-subtask
+├── 1.2 User Login                      # Subtask
+└── 1.3 Password Reset                  # Subtask
+```
+
+### Task Status
+
+- `pending` - Ready to work on
+- `in-progress` - Currently working
+- `done` - Completed
+- `blocked` - Waiting on dependencies
+- `deferred` - Postponed
+- `cancelled` - No longer needed
+
+### PRD (Product Requirements Document)
+
+Write your project requirements in plain text. The AI parses it into structured tasks.
+
+**Example:**
+
+```text
+# Feature: Dark Mode
+
+Add dark mode support to the application.
+
+Requirements:
+- Toggle switch in settings
+- Save preference to localStorage
+- Apply theme to all components
+- Smooth transition animation
+```
+
+---
+
+## Essential Commands
+
+### Project Setup
+
+```bash
+task-master init                          # Initialize Task Master
+task-master parse-prd <file>             # Parse PRD into tasks
+```
+
+### Task Management
+
+```bash
+task-master list                          # List all tasks
+task-master show <id>                    # Show task details
+task-master add "description"            # Add new task
+task-master update <id> "changes"        # Update task
+task-master delete <id>                  # Delete task
+task-master status <id> <status>         # Set status
+```
+
+### Complexity Analysis
+
+```bash
+task-master analyze-complexity           # Analyze all tasks
+task-master expand <id>                  # Expand task into subtasks
+task-master expand --all                 # Expand all eligible tasks
+task-master complexity-report            # View analysis report
+```
+
+### Dependencies
+
+```bash
+task-master add-dependency <id> --depends-on <other-id>
+task-master validate-dependencies
+```
+
+### Git Integration
+
+```bash
+task-master commit <id> "message"        # Commit with task ref
+task-master branch <id>                  # Create task branch
+```
+
+### Configuration
+
+```bash
+task-master models                       # View current model
+task-master models --set-main gpt-4o    # Set model
+```
+
+---
+
+## GitHub Copilot Integration
+
+Task Master works seamlessly with GitHub Copilot by storing tasks in readable formats.
+
+### How It Works
+
+1. **Tasks are visible files** - Stored in `.taskmaster/tasks/` as JSON and markdown
+2. **Copilot reads context** - When you reference task IDs, Copilot understands the context
+3. **Better suggestions** - Task descriptions guide Copilot's code generation
+
+### Best Practices
+
+#### 1. Reference Tasks in Code
+
+```typescript
+// Task 1.1.1: Email validation
+export function validateEmail(email: string): boolean {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
 }
 ```
 
-#### Method 2: Claude Code CLI (One-Time Setup)
-
-For Claude Code users, you can set the mode during installation:
+#### 2. Use Task-Driven Development
 
 ```bash
-# Core mode example (~70% token reduction)
-claude mcp add task-master-ai --scope user \
-  --env TASK_MASTER_TOOLS="core" \
-  -- npx -y task-master-ai@latest
+# 1. Get next task
+task-master show 1.2
 
-# Custom tools example
-claude mcp add task-master-ai --scope user \
-  --env TASK_MASTER_TOOLS="get_tasks,next_task,set_task_status" \
-  -- npx -y task-master-ai@latest
+# 2. Create file with task comment
+# Task 1.2: Password Hashing
+
+# 3. Let Copilot help implement
+
+# 4. Mark complete
+task-master status 1.2 done
 ```
 
-### Tool Sets Details
+#### 3. Keep Task Details Updated
 
-**Core Tools (7):** `get_tasks`, `next_task`, `get_task`, `set_task_status`, `update_subtask`, `parse_prd`, `expand_task`
+```bash
+task-master update 1.2 "Using bcrypt v5.1, salt rounds 10, async for performance"
+```
 
-**Standard Tools (15):** All core tools plus `initialize_project`, `analyze_project_complexity`, `expand_all`, `add_subtask`, `remove_task`, `generate`, `add_task`, `complexity_report`
+---
 
-**All Tools (36):** Complete set including project setup, task management, analysis, dependencies, tags, research, and more
+## Workflow Examples
 
-### Recommendations
+### New Feature Development
 
-- **New users**: Start with `"standard"` mode for a good balance
-- **Large projects**: Use `"core"` mode to minimize token usage
-- **Complex workflows**: Use `"all"` mode or custom selection
-- **Backward compatibility**: If not specified, defaults to `"all"` mode
+```bash
+# 1. Write PRD
+echo "# Feature description..." > .taskmaster/docs/feature.txt
 
-## Claude Code Support
+# 2. Parse with AI
+task-master parse-prd .taskmaster/docs/feature.txt
 
-Task Master now supports Claude models through the Claude Code CLI, which requires no API key:
+# 3. Analyze and expand
+task-master analyze-complexity
+task-master expand --all
 
-- **Models**: `claude-code/opus` and `claude-code/sonnet`
-- **Requirements**: Claude Code CLI installed
-- **Benefits**: No API key needed, uses your local Claude instance
+# 4. Work through tasks
+task-master list
+task-master show 1
+# ... implement ...
+task-master status 1 done
+```
 
-[Learn more about Claude Code setup](docs/examples/claude-code-usage.md)
+### Bug Fix
+
+```bash
+# 1. Add bug as task
+task-master add "Fix: Login fails with special characters in password"
+
+# 2. Add investigation notes
+task-master update 1 "Root cause: password not properly escaped. Fix: use parameterized queries"
+
+# 3. Track progress
+task-master status 1 in-progress
+# ... fix ...
+task-master status 1 done
+```
+
+### Refactoring
+
+```bash
+# 1. Create refactoring PRD
+cat > .taskmaster/docs/refactor.txt << 'EOF'
+# Auth Module Refactor
+
+Split auth.ts into:
+- validation.ts (email/password validation)
+- hashing.ts (bcrypt operations)
+- tokens.ts (JWT handling)
+EOF
+
+# 2. Parse and expand
+task-master parse-prd .taskmaster/docs/refactor.txt
+task-master expand --all
+
+# 3. Work systematically
+task-master list
+```
+
+---
+
+## File Structure
+
+```
+your-project/
+├── .taskmaster/
+│   ├── tasks/
+│   │   ├── tasks.json           # Task database (JSON)
+│   │   ├── task-1.md           # Auto-generated markdown
+│   │   └── task-2.md
+│   ├── docs/
+│   │   └── prd.txt             # Your PRD documents
+│   ├── reports/
+│   │   └── complexity-report.json
+│   └── config.json             # Model configuration
+├── src/
+│   └── ...your code...
+├── .env                        # API keys (optional)
+└── package.json
+```
+
+---
+
+## Configuration
+
+### Models
+
+Task Master supports various OpenAI models:
+
+```bash
+# Recommended for most use cases
+task-master models --set-main gpt-4o
+
+# Budget-friendly option
+task-master models --set-main gpt-3.5-turbo
+
+# Maximum capability
+task-master models --set-main gpt-4-turbo
+```
+
+### Environment Variables
+
+```bash
+# Required
+OPENAI_API_KEY=sk-...
+
+# Optional
+TM_LOG_LEVEL=info           # Logging level
+TM_CONFIG_PATH=.taskmaster  # Custom config path
+```
+
+---
+
+## Advanced Usage
+
+### Task Dependencies
+
+```bash
+# Task 2 depends on Task 1
+task-master add-dependency 2 --depends-on 1
+
+# Validate dependency graph
+task-master validate-dependencies
+```
+
+### Custom Task Properties
+
+```bash
+# Add with priority
+task-master add "Critical bug fix" --priority high
+
+# Add with multiple dependencies
+task-master add "Deploy" --depends-on 1,2,3
+```
+
+### Multiple PRDs
+
+```bash
+# Parse multiple PRDs
+task-master parse-prd .taskmaster/docs/auth.txt
+task-master parse-prd .taskmaster/docs/api.txt
+
+# All tasks combined in tasks.json
+task-master list
+```
+
+---
 
 ## Troubleshooting
 
-### If `task-master init` doesn't respond
-
-Try running it with Node directly:
+### No OpenAI API key found
 
 ```bash
-node node_modules/claude-task-master/scripts/init.js
+export OPENAI_API_KEY="sk-..."
+# Or add to .env file
 ```
 
-Or clone the repository and run:
+### Task not found
 
 ```bash
-git clone https://github.com/eyaltoledano/claude-task-master.git
-cd claude-task-master
-node scripts/init.js
+# List all tasks
+task-master list
+
+# Use correct ID format
+task-master show 1.1  # Not "1-1" or "1_1"
 ```
 
-## Join Our Team
+### Cannot parse PRD
 
-<a href="https://tryhamster.com" target="_blank">
-  <img src="./images/hamster-hiring.png" alt="Join Hamster's founding team" />
-</a>
+- Use clear structure with headings (`#`, `##`)
+- Write specific requirements
+- Check file path is correct
 
-## Contributors
+### Tasks not expanding
 
-<a href="https://github.com/eyaltoledano/claude-task-master/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=eyaltoledano/claude-task-master" alt="Task Master project contributors" />
-</a>
+```bash
+# Run complexity analysis first
+task-master analyze-complexity
 
-## Star History
+# Force expansion
+task-master expand 1 --force
+```
 
-[![Star History Chart](https://api.star-history.com/svg?repos=eyaltoledano/claude-task-master&type=Timeline)](https://www.star-history.com/#eyaltoledano/claude-task-master&Timeline)
+---
 
-## Licensing
+## vs. Other Tools
 
-Task Master is licensed under the MIT License with Commons Clause. This means you can:
+| Feature | Task Master | GitHub Issues | Jira | Trello |
+|---------|------------|---------------|------|--------|
+| **AI-Powered** | ✅ | ❌ | ❌ | ❌ |
+| **Local Storage** | ✅ | ❌ | ❌ | ❌ |
+| **Multi-Level Tasks** | ✅ | Limited | ✅ | ❌ |
+| **CLI-First** | ✅ | ❌ | ❌ | ❌ |
+| **Copilot Friendly** | ✅ | ❌ | ❌ | ❌ |
+| **Solo Developer** | ✅ | ❌ | ❌ | ✅ |
+| **Free** | ✅ | ✅ | ❌ | Limited |
 
-✅ **Allowed**:
+---
 
-- Use Task Master for any purpose (personal, commercial, academic)
-- Modify the code
-- Distribute copies
-- Create and sell products built using Task Master
+## Documentation
 
-❌ **Not Allowed**:
+- **[COPILOT.md](./COPILOT.md)** - Complete Copilot integration guide
+- **[CONTRIBUTING.md](./CONTRIBUTING.md)** - Contribution guidelines
+- **[CHANGELOG.md](./CHANGELOG.md)** - Version history
 
-- Sell Task Master itself
-- Offer Task Master as a hosted service
-- Create competing products based on Task Master
+---
 
-See the [LICENSE](LICENSE) file for the complete license text and [licensing details](docs/licensing.md) for more information.
+## FAQ
+
+**Q: Do I need Claude Code or Cursor AI?**
+A: No! This is CLI-only and works with any editor, especially VS Code + Copilot.
+
+**Q: Does this work offline?**
+A: Task management works offline. AI features (PRD parsing, complexity analysis) require internet.
+
+**Q: How much does it cost?**
+A: Task Master is free. You only pay for OpenAI API usage (typically $0.01-0.10 per PRD parsing).
+
+**Q: Can I use this for team projects?**
+A: This version is optimized for solo developers. For teams, check out the full version at [task-master.dev](https://task-master.dev).
+
+**Q: Where is my data stored?**
+A: Everything is stored locally in `.taskmaster/` directory. No cloud, no database, no tracking.
+
+**Q: Can I export tasks?**
+A: Tasks are stored as JSON and markdown files - easy to export, backup, or version control.
+
+---
+
+## Examples
+
+See **[COPILOT.md](./COPILOT.md)** for comprehensive examples including:
+
+- PRD templates
+- Task-driven development workflow
+- Copilot integration patterns
+- Git workflow integration
+- Keyboard-driven workflows
+
+---
+
+## Support
+
+- 📖 **Documentation**: See [COPILOT.md](./COPILOT.md)
+- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/eyaltoledano/claude-task-master/issues)
+- 💬 **Questions**: [GitHub Discussions](https://github.com/eyaltoledano/claude-task-master/discussions)
+
+---
+
+## License
+
+MIT with Commons Clause - See [LICENSE](./LICENSE) for details.
+
+---
+
+## Credits
+
+Created by [@eyaltoledano](https://x.com/eyaltoledano) & [@RalphEcom](https://x.com/RalphEcom)
+
+---
+
+**Ready to supercharge your development workflow?**
+
+```bash
+npm install -g task-master-ai
+task-master init
+```

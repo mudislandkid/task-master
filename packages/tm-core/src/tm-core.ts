@@ -6,11 +6,8 @@
 import path from 'node:path';
 import { ConfigManager } from './modules/config/managers/config-manager.js';
 import { TasksDomain } from './modules/tasks/tasks-domain.js';
-import { AuthDomain } from './modules/auth/auth-domain.js';
-import { WorkflowDomain } from './modules/workflow/workflow-domain.js';
 import { GitDomain } from './modules/git/git-domain.js';
 import { ConfigDomain } from './modules/config/config-domain.js';
-import { IntegrationDomain } from './modules/integration/integration-domain.js';
 
 import {
 	ERROR_CODES,
@@ -43,35 +40,26 @@ export interface TmCoreOptions {
  * const tmcore = await createTmCore({ projectPath: process.cwd() });
  *
  * // Access any domain
- * await tmcore.auth.authenticateWithOAuth();
  * const tasks = await tmcore.tasks.list();
- * await tmcore.workflow.start({ taskId: '1' });
  * await tmcore.git.commit('feat: add feature');
  * const modelConfig = tmcore.config.getModelConfig();
- * await tmcore.integration.exportTasks({ ... });
  * ```
  *
- * @example MCP integration with logging
+ * @example With logging
  * ```typescript
  * import { LogLevel } from '@tm/core/logger';
  *
- * // In MCP tool execute function
- * async function execute(args, log) {
- *   const tmcore = await createTmCore({
- *     projectPath: args.projectRoot,
- *     loggerConfig: {
- *       level: LogLevel.INFO,
- *       mcpMode: true,
- *       logCallback: log  // MCP log function
- *     }
- *   });
+ * const tmcore = await createTmCore({
+ *   projectPath: process.cwd(),
+ *   loggerConfig: {
+ *     level: LogLevel.INFO
+ *   }
+ * });
  *
- *   // All internal logging will now be sent to MCP
- *   const tasks = await tmcore.tasks.list();
- *
- *   // You can also log custom messages
- *   tmcore.logger.info('Operation completed');
- * }
+ * // Use logger for custom messages
+ * tmcore.logger.info('Operation started');
+ * const tasks = await tmcore.tasks.list();
+ * tmcore.logger.info('Operation completed');
  * ```
  */
 export class TmCore {
@@ -82,30 +70,18 @@ export class TmCore {
 
 	// Private writable properties
 	private _tasks!: TasksDomain;
-	private _auth!: AuthDomain;
-	private _workflow!: WorkflowDomain;
 	private _git!: GitDomain;
 	private _config!: ConfigDomain;
-	private _integration!: IntegrationDomain;
 
 	// Public readonly getters
 	get tasks(): TasksDomain {
 		return this._tasks;
-	}
-	get auth(): AuthDomain {
-		return this._auth;
-	}
-	get workflow(): WorkflowDomain {
-		return this._workflow;
 	}
 	get git(): GitDomain {
 		return this._git;
 	}
 	get config(): ConfigDomain {
 		return this._config;
-	}
-	get integration(): IntegrationDomain {
-		return this._integration;
 	}
 	get logger(): Logger {
 		return this._logger;
@@ -171,11 +147,8 @@ export class TmCore {
 
 			// Initialize domain facades
 			this._tasks = new TasksDomain(this._configManager);
-			this._auth = new AuthDomain();
-			this._workflow = new WorkflowDomain(this._configManager);
 			this._git = new GitDomain(this._projectPath);
 			this._config = new ConfigDomain(this._configManager);
-			this._integration = new IntegrationDomain(this._configManager);
 
 			// Initialize domains that need async setup
 			await this._tasks.initialize();
