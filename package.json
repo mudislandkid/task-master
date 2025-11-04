@@ -5,9 +5,7 @@
 	"main": "index.js",
 	"type": "module",
 	"bin": {
-		"task-master": "dist/task-master.js",
-		"task-master-mcp": "dist/mcp-server.js",
-		"task-master-ai": "dist/mcp-server.js"
+		"task-master": "dist/task-master.js"
 	},
 	"workspaces": ["apps/*", "packages/*", "."],
 	"scripts": {
@@ -26,28 +24,23 @@
 		"test:ci": "node --experimental-vm-modules node_modules/.bin/jest --coverage --ci",
 		"test:e2e": "./tests/e2e/run_e2e.sh",
 		"test:e2e-report": "./tests/e2e/run_e2e.sh --analyze-log",
-		"postpack": "chmod +x dist/task-master.js dist/mcp-server.js",
+		"postpack": "chmod +x dist/task-master.js",
 		"changeset": "changeset",
 		"release": "changeset publish",
 		"publish-packages": "turbo run build lint test && changeset version && changeset publish",
-		"inspector": "npx @modelcontextprotocol/inspector node dist/mcp-server.js",
-		"mcp-server": "node dist/mcp-server.js",
 		"format-check": "biome format .",
 		"format": "biome format . --write",
 		"deps:check": "manypkg check || echo 'Note: Workspace package version warnings are expected for internal @tm/* packages'",
 		"deps:fix": "manypkg fix"
 	},
 	"keywords": [
-		"claude",
 		"task",
 		"management",
 		"ai",
 		"development",
-		"cursor",
-		"anthropic",
 		"llm",
-		"mcp",
-		"context"
+		"cli",
+		"copilot"
 	],
 	"author": "Eyal Toledano",
 	"license": "MIT WITH Commons-Clause",
